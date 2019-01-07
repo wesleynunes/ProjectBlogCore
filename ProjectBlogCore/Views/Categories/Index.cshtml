@@ -1,0 +1,71 @@
+﻿@model IEnumerable<ProjectBlogCore.Models.Post.Category>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Panel.cshtml";
+}
+
+<h3>Categorias</h3>
+<hr />
+
+@if (TempData["MessagePanelCategory"] != null)
+{
+    <div class="alert alert-success">
+        @TempData["MessagePanelCategory"]
+    </div>
+}
+
+@if (ViewBag.Mensagem != null)
+{
+    <div class="alert alert-warning">
+        @ViewBag.Mensagem
+    </div>
+}
+
+
+<p>
+    <a asp-action="Create" class="btn btn-primary btn-sm">Cadastrar</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CreateTime)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UpdateTime)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.User)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CreateTime)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.UpdateTime)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.User.UserName)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.CategoryId" class="btn btn-warning btn-sm">Editar</a> |
+                    <a asp-action="Details" asp-route-id="@item.CategoryId" class="btn btn-info btn-sm">Detalhes</a> |
+                    <a asp-action="Delete" asp-route-id="@item.CategoryId" class="btn btn-danger btn-sm">Deletar</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

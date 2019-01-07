@@ -1,0 +1,47 @@
+﻿@model ProjectBlogCore.Models.Post.Category
+
+@{
+    ViewData["Title"] = "Delete";
+    Layout = "~/Views/Shared/_Panel.cshtml";
+}
+
+<h2>Deletar</h2>
+<hr/>
+<h4>Tem certeza de que deseja excluir esta categoria</h4>
+<br />
+<h4>*@Html.DisplayFor(model => model.Name) *</h4>
+<div>   
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.CreateTime)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.CreateTime)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.UpdateTime)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.UpdateTime)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.User)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.User.UserName)
+        </dd>
+    </dl>
+
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="CategoryId" />
+        <input type="submit" value="Deletar" class="btn btn-danger btn-sm" /> |
+        <a asp-action="Index" class="btn btn-secondary btn-sm">Voltar</a>
+    </form>
+</div>

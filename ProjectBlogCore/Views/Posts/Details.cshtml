@@ -1,0 +1,52 @@
+﻿@model ProjectBlogCore.Models.Post.Post
+
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container">
+    <div>
+        <!-- Title -->
+        <h1 class="mt-4">@Html.DisplayFor(model => model.Title)</h1>
+        <hr />
+
+        <!-- Author -->
+        <p class="lead">
+            Por: <a>@Html.DisplayFor(model => model.User.UserName)</a>
+        </p>
+
+        <hr>
+
+        <!-- Date/Time -->
+        <p>Postato @Html.DisplayFor(model => model.CreateTime)</p>
+
+        <hr>
+
+        <!-- Preview Image -->
+        @if (!String.IsNullOrEmpty(Model.ImageFile))
+        {
+            <center>
+                <img src="~/@Model.ImageFile" alt="@Model.ImageFile" style="width:750px;height:300px;max-width: 100%" class="img-thumbnail" />
+            </center>
+        }
+        <hr>
+
+        <!-- Post Content -->
+        <h3>@Html.DisplayNameFor(model => model.Content)</h3>
+        <p>@Html.Raw(Model.Content)</p>
+
+        <hr>
+        <br />
+
+        <div>
+            @if (User.IsInRole("Admin"))
+            {
+                <a asp-action="Edit" asp-route-id="@Model.PostId" class="btn btn-primary">Editar</a>
+            }           
+                <a asp-action="Index" class="btn btn-secondary">Voltar</a>
+        </div>
+        <br />
+        <hr />
+    </div>
+</div>

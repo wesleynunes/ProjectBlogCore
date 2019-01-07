@@ -1,0 +1,47 @@
+﻿@model IEnumerable<ProjectBlogCore.Models.Post.Post>
+
+<!-- Sidebar Widgets Column -->
+<div class="col-md-4">
+    <!-- Search Widget -->
+    <div class="card my-4">
+        <h5 class="card-header">Pesquisar</h5>
+        @using (Html.BeginForm("Index", "Posts", FormMethod.Get, new { @class = "form-inline" }))
+        {
+            <div class="card-body">
+                <div class="input-group mb-3">
+                    <input type="text" class="form-control" placeholder="Buscar..." aria-label="Recipient's username" aria-describedby="button-addon2" name="busca" value="@ViewBag.Busca">
+                    <div class="input-group-append">
+                        <button class="btn btn-outline-secondary" type="submit" id="button-addon2">Buscar</button>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+
+    <!-- Categories Widget -->
+    <div class="card my-4">
+        <h5 class="card-header">Recentes</h5>
+        <div class="card-body">
+            <div class="row">
+                <table class="table">
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.PostId) - @Html.DisplayFor(modelItem => item.Title)
+                                @Html.ActionLink("Detalhes", "Details", new { id = item.PostId })
+                            </td>
+                        </tr>
+                    }
+                </table>
+            </div>
+        </div>
+    </div>
+    <!-- Side Widget -->
+    <div class="card my-4">
+        <h5 class="card-header">Side Widget</h5>
+        <div class="card-body">
+            You can put anything you want inside of these side widgets. They are easy to use, and feature the new Bootstrap 4 card containers!
+        </div>
+    </div>
+</div>

@@ -1,0 +1,90 @@
+﻿@model IEnumerable<ProjectBlogCore.Models.Post.Post>
+
+@{
+    ViewData["Title"] = "List";
+    Layout = "~/Views/Shared/_Panel.cshtml";
+}
+
+<h2>Index</h2>
+
+@if (TempData["MessagePanelPost"] != null)
+{
+    <div class="alert alert-success">
+        @TempData["MessagePanelPost"]
+    </div>
+}
+
+@if (ViewBag.Mensagem != null)
+{
+    <div class="alert alert-warning">
+        @ViewBag.Mensagem
+    </div>
+}
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Title)
+            </th>           
+            <th>
+                @Html.DisplayNameFor(model => model.CreateTime)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UpdateTime)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Tag)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Categories)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.User)
+            </th>
+            <th>
+                @Html.LabelForModel("Imagem")
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Title)
+                </td>               
+                <td>
+                    @Html.DisplayFor(modelItem => item.CreateTime)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.UpdateTime)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Tag)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Categories.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.User.UserName)
+                </td>
+                <td>
+                    @if (!String.IsNullOrEmpty(item.ImageFile))
+                    {
+                        <img src="~/@item.ImageFile" alt="@item.ImageFile" style="width:100px;height:50px;max-width: 100%" class="img-thumbnail" />
+                    }
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.PostId">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.PostId">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.PostId">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

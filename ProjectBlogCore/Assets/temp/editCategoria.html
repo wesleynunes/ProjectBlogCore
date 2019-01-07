@@ -1,0 +1,52 @@
+﻿//// Verifica se a categoria existe
+            ////Category CategoriesExists = await _context.Categories.SingleOrDefaultAsync(m => m.Name == category.Name);
+            //Category categories = _context.Categories.Find(category.CategoryId);
+            //var Userlogin = await _userManager.GetUserAsync(User);
+
+            //// Mensagem se category ja existe
+            ////if (CategoriesExists != null)
+            ////{
+            ////    ModelState.AddModelError(string.Empty, "Esta Categoria já esta Cadastrada!!");
+            ////    return View(category);
+            ////}
+
+            ////if (id != category.CategoryId)
+            ////{
+            ////    ModelState.AddModelError(string.Empty, "Esta Categoria já esta Cadastrada!!");
+            ////    return View(category);
+            ////    //return NotFound();
+            ////}
+
+            //if (ModelState.IsValid)
+            //{
+            //    try
+            //    {
+            //        categories.Name = category.Name;
+            //        categories.UpdateTime = DateTime.Now;
+            //        categories.UserId = Userlogin.Id;
+            //        //_context.Entry(categories).State = EntityState.Modified;
+            //        _context.Update(categories);
+            //        await _context.SaveChangesAsync();
+
+            //        //category.UpdateTime = DateTime.Now;
+            //        //category.UserId = Userlogin.Id;
+            //        //_context.Update(category);
+            //        //await _context.SaveChangesAsync();
+            //    }
+            //    catch (DbUpdateConcurrencyException)
+            //    {
+            //        if (!CategoryExists(category.CategoryId))
+            //        {
+            //            //return NotFound();
+            //            ModelState.AddModelError(string.Empty, "Esta Categoria já esta Cadastrada!!");
+            //            return View(category);
+            //        }
+            //        else
+            //        {
+            //            throw;
+            //        }
+            //    }
+            //    return RedirectToAction(nameof(Index));
+            //}
+            ////ViewData["UserId"] = new SelectList(_context.Users, "Id", "Id", category.UserId);
+            //return View(category);
