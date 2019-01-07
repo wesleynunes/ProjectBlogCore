@@ -17,6 +17,7 @@ using Microsoft.AspNetCore.Identity.UI.Services;
 using ProjectBlogCore.Areas.Identity.Services;
 using Microsoft.AspNetCore.Authentication;
 using System.Security.Claims;
+using ProjectBlogCore.Interface;
 
 namespace ProjectBlogCore
 {
@@ -87,17 +88,7 @@ namespace ProjectBlogCore
                 options.SlidingExpiration = true;
             });
 
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
-
-            // requires
-            // using Microsoft.AspNetCore.Identity.UI.Services;
-            // using WebPWrecover.Services;
-            // Comentar a linha no controller register no OnPostAsync Areas/Identity/Pages/Account/Register.cshtml.cs.
-            // Linha comentada await _signInManager.SignInAsync(user, isPersistent: false);
-            // Esta linha nao permite o usuario logar automaticamente depois de se registrar
-            services.AddSingleton<IEmailSender, EmailSender>();
-            services.Configure<AuthMessageSenderOptions>(Configuration);
-
+           
             //Autenticacao Facebook
             //Para registrar os tokens na tabela tem que alterar o controller ExternalLogin no metodo OnPostConfirmationAsync e criar um foreach 
             //foreach (var token in info.AuthenticationTokens)
@@ -128,11 +119,26 @@ namespace ProjectBlogCore
                 microsoftOptions.SaveTokens = true;
             });
 
+
+            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+
+            // requires
+            // using Microsoft.AspNetCore.Identity.UI.Services;
+            // using WebPWrecover.Services;
+            // Comentar a linha no controller register no OnPostAsync Areas/Identity/Pages/Account/Register.cshtml.cs.
+            // Linha comentada await _signInManager.SignInAsync(user, isPersistent: false);
+            // Esta linha nao permite o usuario logar automaticamente depois de se registrar
+            services.AddSingleton<IEmailSender, EmailSender>();
+            services.Configure<AuthMessageSenderOptions>(Configuration);
+
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+
+            // Add Database Initializer
+            services.AddScoped<IDbInitializer, DbInitializer>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, IDbInitializer dbInitializer)
         {
             if (env.IsDevelopment())
             {
@@ -150,6 +156,9 @@ namespace ProjectBlogCore
             app.UseCookiePolicy();
 
             app.UseAuthentication();
+
+            // Add Database Initializer
+            dbInitializer.Initialize();
 
             app.UseMvc(routes =>
             {
