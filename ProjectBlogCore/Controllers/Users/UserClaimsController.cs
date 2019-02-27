@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using ProjectBlogCore.Data;
+using ProjectBlogCore.Models.ViewModels;
 
 namespace ProjectBlogCore.Controllers.Users
 {
@@ -18,12 +19,43 @@ namespace ProjectBlogCore.Controllers.Users
             _context = context;
         }
 
-        // GET: UserClaims
-        public async Task<IActionResult> Index()
+        //// GET: UserClaims
+        //public async Task<IActionResult> Index()
+        //{
+        //    //var index = _context.UsersClaims.Include(p => p.UserId);
+        //    //return View(await index.ToListAsync());        
+        //    return View(await _context.ApplicationUserClaims.ToListAsync());         
+        //}
+
+        public IActionResult Index()
         {
-            //var index = _context.UsersClaims.Include(p => p.UserId);
-            //return View(await index.ToListAsync());
-            return View(await _context.ApplicationUserClaims.ToListAsync());
+            List<UserClaimsViewModel> listUserClaims = new List<UserClaimsViewModel>();
+
+            var UserClaimsList = (from uc in _context.UserClaims
+                                  join us in _context.Users on uc.UserId equals us.Id
+                                  select new
+                                  {
+                                      uc.Id,
+                                      uc.UserId,
+                                      us.UserName,
+                                      uc.ClaimType,
+                                      uc.ClaimValue,                                     
+                                  }).ToList();
+
+            foreach(var item in UserClaimsList)
+            {
+                UserClaimsViewModel listClaims = new UserClaimsViewModel
+                {
+                    UserClaimId = item.Id,
+                    UserId = item.UserId,
+                    UserName = item.UserName,
+                    ClaimType = item.ClaimType,
+                    ClaimValue = item.ClaimValue,
+
+                };
+                listUserClaims.Add(listClaims);
+            }
+            return View(listUserClaims);
         }
 
         // GET: UserClaims/Details/5
@@ -81,6 +113,7 @@ namespace ProjectBlogCore.Controllers.Users
             {
                 return NotFound();
             }
+            ViewData["UserId"] = new SelectList(_context.Users, "Id", "UserName");
             return View(applicationUserClaim);
         }
 

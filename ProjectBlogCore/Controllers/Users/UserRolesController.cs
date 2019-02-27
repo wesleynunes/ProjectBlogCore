@@ -26,22 +26,7 @@ namespace ProjectBlogCore.Controllers.Users
         //    //return View(await applicationDbContext.ToListAsync());
         //    return View(await _context.ApplicationUserRoles.ToListAsync());
 
-        //}
-
-        //public IActionResult Index()
-        //{
-        //    var Items = (from p in _context.UserRoles
-        //                 join c in _context.Users on p.UserId equals c.Id
-        //                 join d in _context.Roles on p.RoleId equals d.Id
-        //                 select new
-        //                 {
-        //                     c.UserName,
-        //                     d.Name
-        //                 }).ToList();
-
-        //    return View(Items);
-        //}
-
+        //}       
 
         public IActionResult Index()
         {
@@ -72,9 +57,7 @@ namespace ProjectBlogCore.Controllers.Users
             }
             return View(listaUserRoles);
         }
-
-
-
+               
 
         // GET: UserRoles/Details/5
         public async Task<IActionResult> Details(Guid? id)
@@ -136,6 +119,7 @@ namespace ProjectBlogCore.Controllers.Users
             }
             return View(applicationUserRole);
         }
+        
 
         // POST: UserRoles/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
@@ -152,7 +136,7 @@ namespace ProjectBlogCore.Controllers.Users
             if (ModelState.IsValid)
             {
                 try
-                {                    
+                {
                     _context.Update(applicationUserRole);
                     await _context.SaveChangesAsync();
                 }
@@ -205,5 +189,55 @@ namespace ProjectBlogCore.Controllers.Users
         {
             return _context.ApplicationUserRoles.Any(e => e.UserId == id);
         }
+
+        //public async Task<ActionResult> Editar(Guid? id)
+        //{
+        //    if (id == null)
+        //    {
+        //        return NotFound();
+        //    }
+
+        //    var applicationUserRole = await _context.ApplicationUserRoles.FindAsync(id);
+        //    if (applicationUserRole == null)
+        //    {
+        //        return NotFound();
+        //    }
+
+        //    var userRolesViewModel = new UserRolesViewModel
+        //    {
+        //        UserId = applicationUserRole.UserId,
+        //        RoleId = applicationUserRole.RoleId,
+        //    };
+
+        //    return View(applicationUserRole);
+        //}
+
+
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //[HttpPost]
+        //public async Task<IActionResult> Edit(UserRolesViewModel viewModel)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        var userId = _context.ApplicationUserRoles.FirstOrDefault(p => p.UserId == viewModel.UserId);
+        //        var rolesId = _context.ApplicationUserRoles.FirstOrDefault(p => p.RoleId == viewModel.RoleId);
+
+        //        if (userId == null && rolesId == null)
+        //        {
+        //            return NotFound();
+        //        }
+
+        //        userId.UserId = viewModel.UserId;
+        //        rolesId.UserId = viewModel.RoleId;
+
+        //        _context.Entry(userId).State = EntityState.Modified;
+        //        _context.Entry(rolesId).State = EntityState.Modified;
+        //        await _context.SaveChangesAsync();
+        //        return RedirectToAction("Index");
+        //    }
+
+        //    return View(viewModel);
+        //}
     }
 }

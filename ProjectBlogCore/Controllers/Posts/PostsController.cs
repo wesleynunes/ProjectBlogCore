@@ -118,7 +118,7 @@ namespace ProjectBlogCore.Controllers.Posts
                     if (file != null && file.Length > 0)
                     {
                         //var fileName = Guid.NewGuid().ToString().Replace("-", "") + Path.GetExtension(file.FileName);  // gera um Guid como nome da imagem
-                        var fileName = post.PostId + Path.GetExtension(file.FileName);  // o nome da imagem e o mesmo do Name
+                        var fileName = post.PostId + Path.GetExtension(file.FileName);  // o nome da imagem e o mesmo do PostId 
                         var uploadPathWithfileName = Path.Combine(uploadPath, fileName);
 
                         var uploadAbsolutePath = Path.Combine(_hostingEnv.WebRootPath, uploadPathWithfileName);

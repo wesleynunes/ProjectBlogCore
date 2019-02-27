@@ -1,15 +1,16 @@
 ﻿using ProjectBlogCore.Data;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace ProjectBlogCore.Models.ViewModels
 {
-    public class ClaimViewModel
+    public class UserClaimsViewModel
     {
+        public int UserClaimId { get; set; }
+
         public Guid UserId { get; set; }
 
+        public string UserName { get; set; }
+               
         public string ClaimType { get; set; }
 
         public string ClaimValue { get; set; }
