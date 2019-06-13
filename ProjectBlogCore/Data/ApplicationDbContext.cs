@@ -102,5 +102,7 @@ namespace ProjectBlogCore.Data
 
         public DbSet<ApplicationUserRole> ApplicationUserRoles { get; set; }
 
+        public DbSet<ProjectBlogCore.Data.ApplicationUser> ApplicationUser { get; set; }
+
     }
 }
